@@ -224,9 +224,7 @@ export const projects: Project[] = [
     company: 'PT. Mega Global Energy',
     year: '2024',
     description: [
-      'Merancang antarmuka pengguna (UI) untuk sistem repositori dokumen digital departemen Planning guna menggantikan pengarsipan manual.',
-      'Mendesain tata letak dashboard yang intuitif dengan fitur sidebar navigasi, pengelolaan dokumen berbasis kartu (card-based), serta visualisasi status dokumen secara terpusat.',
-      'Memfokuskan desain pada kemudahan akses dan pencarian dokumen spesifik seperti BA Fuel, PO, dan BA Pindah Beban bagi pengguna akhir.'
+      'Merancang sistem repositori dokumen digital, mendesain tata letak dashboard interaktif'
     ]
   }
 ]
