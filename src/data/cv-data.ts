@@ -217,6 +217,17 @@ export const projects: Project[] = [
       'Merancang Entity Relationship Diagram 5 tabel (departemen, pengguna, dokumen, revisi, persetujuan) sebagai fondasi dari sistem baru.',
       'Memastikan struktur data dapat digunakan secara lintas departemen dengan riwayat pengajuan yang terintegrasi dan mudah dilacak.'
     ]
+  },
+  {
+    id: 'ui-docs-repository',
+    title: 'UI Design: Planning Docs Repository Dashboard',
+    company: 'PT. Mega Global Energy',
+    year: '2024',
+    description: [
+      'Merancang antarmuka pengguna (UI) untuk sistem repositori dokumen digital departemen Planning guna menggantikan pengarsipan manual.',
+      'Mendesain tata letak dashboard yang intuitif dengan fitur sidebar navigasi, pengelolaan dokumen berbasis kartu (card-based), serta visualisasi status dokumen secara terpusat.',
+      'Memfokuskan desain pada kemudahan akses dan pencarian dokumen spesifik seperti BA Fuel, PO, dan BA Pindah Beban bagi pengguna akhir.'
+    ]
   }
 ]
 
