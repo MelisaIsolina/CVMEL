@@ -11,6 +11,7 @@ export interface PersonalInfo {
   phone: string
   email: string
   address: string
+  github?: string
   badge: {
     text: string
     active: boolean
@@ -65,6 +66,7 @@ export const personalInfo: PersonalInfo = {
   phone: '0853-4542-0296',
   email: 'melsisolina@gmail.com',
   address: 'Gg. Family No 28',
+  github: 'https://github.com/MelisaIsolina',
   badge: {
     text: 'Sedang Aktif Bekerja',
     active: true,
