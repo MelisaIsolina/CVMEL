@@ -107,16 +107,17 @@ onMounted(() => {
             <h3 class="contact__info-title">Informasi Kontak</h3>
 
             <div class="contact__info-items">
-              <a :href="`tel:${personalInfo.phone}`" class="contact__info-item">
+              <a <a href="https://wa.me/6285345420296" target="_blank" class="contact__info-item">
                 <div class="contact__info-icon">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M7.24 3.33L4.77 2.14c-.5-.24-1.1-.03-1.36.47L1.94 5.57c-.22.43-.1.96.29 1.24 1.53 1.17 3.29 2.71 5.33 4.76 2.04 2.04 3.58 3.8 4.76 5.33.28.39.81.51 1.24.29l2.96-1.47c.5-.26.71-.86.47-1.36l-1.19-2.47c-.21-.43-.69-.67-1.14-.57l-2.36.54c-.31.07-.64-.03-.86-.24L8.1 8.28c-.21-.21-.31-.55-.24-.86l.54-2.36c.1-.46-.14-.93-.57-1.14l-.59-.59z" stroke="currentColor" stroke-width="1.5"/>
                   </svg>
                 </div>
-                <div>
-                  <a href="https://wa.me/6285345420296" target="_blank" rel="noopener noreferrer" class="text-gray-900 font-medium hover:text-blue-600 hover:underline">
-  {{ personalInfo.phone }}
-</a>
+                <div>            <div>
+              <span class="contact__info-label">Telepon</span>
+              <span class="contact__info-value">{{ personalInfo.phone }}</span>
+            </div>
+              
                   <span class="contact__info-value">{{ personalInfo.phone }}</span>
                 </div>
               </a>
