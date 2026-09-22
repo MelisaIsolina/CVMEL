@@ -114,7 +114,9 @@ onMounted(() => {
                   </svg>
                 </div>
                 <div>
-                  <span class="contact__info-label">Telepon</span>
+                  <a href="https://wa.me/6285345420296" target="_blank" rel="noopener noreferrer" class="text-gray-900 font-medium hover:text-blue-600 hover:underline">
+  {{ personalInfo.phone }}
+</a>
                   <span class="contact__info-value">{{ personalInfo.phone }}</span>
                 </div>
               </a>
