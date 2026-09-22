@@ -117,12 +117,6 @@ onMounted(() => {
               <span class="contact__info-label">Telepon</span>
               <span class="contact__info-value">{{ personalInfo.phone }}</span>
             </div>
-              
-                  <span class="contact__info-value">{{ personalInfo.phone }}</span>
-                </div>
-              </a>
-
-              <a :href="`mailto:${personalInfo.email}`" class="contact__info-item">
                 <div class="contact__info-icon">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/>
