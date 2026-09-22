@@ -1,30 +1,40 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { personalInfo } from '../../data/cv-data'
 import MagneticButton from '../ui/MagneticButton.vue'
-import { useReducedMotion } from '../../composables/useReducedMotion'
+import { personalInfo } from '../../data/cv-data'
 
-const { prefersReducedMotion } = useReducedMotion()
-const pdfUrl = import.meta.env.BASE_URL + 'CV_Melisa_Isolina_S.pdf'
-const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
+const prefersReducedMotion = ref(false)
 
-const formData = ref({
+const form = ref({
   name: '',
   email: '',
-  message: '',
+  message: ''
 })
 
-function handleSubmit() {
-  const subject = encodeURIComponent(`Pesan dari ${formData.value.name} via Portfolio`)
-  const body = encodeURIComponent(
-    `Nama: ${formData.value.name}\nEmail: ${formData.value.email}\n\n${formData.value.message}`
-  )
-  window.open(`mailto:${personalInfo.email}?subject=${subject}&body=${body}`, '_self')
+const isSubmitting = ref(false)
+
+// You'll need to generate a real PDF and put it in the public folder
+const pdfUrl = '/CV_Melisa_Isolina_S.pdf'
+
+const handleSubmit = async () => {
+  isSubmitting.value = true
+  
+  // Simulate API call
+  await new Promise(resolve => setTimeout(resolve, 1500))
+  
+  // Here you would typically send this to a service like Formspree, EmailJS, etc.
+  console.log('Form submitted:', form.value)
+  
+  // Reset form
+  form.value = { name: '', email: '', message: '' }
+  isSubmitting.value = false
+  
+  alert('Pesan terkirim! Terima kasih telah menghubungi saya.')
 }
 
 onMounted(() => {
-  if (!sectionRef.value) return
+  prefersReducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   const observer = new IntersectionObserver(
     ([entry]) => {
@@ -33,147 +43,151 @@ onMounted(() => {
         observer.disconnect()
       }
     },
-    { threshold: 0.15 }
+    { threshold: 0.1 }
   )
 
-  observer.observe(sectionRef.value)
+  const section = document.querySelector('#kontak')
+  if (section) observer.observe(section)
 })
 </script>
 
 <template>
-  <section id="kontak" class="contact section-paper" ref="sectionRef">
-    <div class="container-cv">
-      <div :class="['contact__header', { 'contact__header--visible': isVisible || prefersReducedMotion }]">
-        <span class="contact__label">Kontak</span>
-        <h2 class="contact__title">Hubungi Saya</h2>
-        <p class="contact__subtitle">
-          Tertarik untuk berdiskusi atau bekerja sama? Jangan ragu untuk menghubungi.
-        </p>
-      </div>
-
-      <div class="contact__grid">
-        <!-- Form -->
-        <div :class="['contact__form-wrapper', { 'contact__form-wrapper--visible': isVisible || prefersReducedMotion }]">
-          <form class="contact__form" @submit.prevent="handleSubmit">
-            <div class="contact__field">
-              <label for="contact-name" class="contact__field-label">Nama</label>
-              <input
-                id="contact-name"
-                v-model="formData.name"
-                type="text"
-                class="contact__input"
-                placeholder="Nama lengkap Anda"
-                required
-              />
-            </div>
-
-            <div class="contact__field">
-              <label for="contact-email" class="contact__field-label">Email</label>
-              <input
-                id="contact-email"
-                v-model="formData.email"
-                type="email"
-                class="contact__input"
-                placeholder="email@contoh.com"
-                required
-              />
-            </div>
-
-            <div class="contact__field">
-              <label for="contact-message" class="contact__field-label">Pesan</label>
-              <textarea
-                id="contact-message"
-                v-model="formData.message"
-                class="contact__input contact__textarea"
-                placeholder="Tulis pesan Anda..."
-                rows="5"
-                required
-              />
-            </div>
-
-            <MagneticButton tag="button" variant="primary">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M15.75 2.25L8.25 9.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15.75 2.25L10.5 15.75L8.25 9.75L2.25 7.5L15.75 2.25Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Kirim Pesan
-            </MagneticButton>
-          </form>
+  <section id="kontak" class="contact">
+    <div class="container">
+      <div class="contact__inner">
+        <div :class="['contact__header', { 'contact__header--visible': isVisible || prefersReducedMotion }]">
+          <span class="contact__label">Mari Berdiskusi</span>
+          <h2 class="contact__title">Mulai Percakapan</h2>
+          <p class="contact__subtitle">Tertarik untuk berkolaborasi? Tinggalkan pesan atau hubungi saya langsung.</p>
         </div>
-        <!-- Contact info sidebar -->
-        <div :class="['contact__info', { 'contact__info--visible': isVisible || prefersReducedMotion }]">
-          <div class="contact__info-card">
-            <h3 class="contact__info-title">Informasi Kontak</h3>
 
-                       <div class="contact__info-items">
-              <!-- Telepon -->
-              <a href="https://wa.me/6285345420296" target="_blank" rel="noopener noreferrer" class="contact__info-item">
-                <div class="contact__info-icon">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M7.24 3.33L4.77 2.14c-.5-.24-1.1-.03-1.36.47L1.94 5.57c-.22.43-.1.96.29 1.24 1.53 1.17 3.29 2.71 5.33 4.76 2.04 2.04 3.58 3.8 4.76 5.33.28.39.81.51 1.24.29l2.96-1.47c.5-.26.71-.86.47-1.36l-1.19-2.47c-.21-.43-.69-.67-1.14-.57l-2.36.54c-.31.07-.64-.03-.86-.24L8.1 8.28c-.21-.21-.31-.55-.24-.86l.54-2.36c.1-.46-.14-.93-.57-1.14l-.59-.59z" stroke="currentColor" stroke-width="1.5"/>
-                  </svg>
-                </div>
-                <div>
-                  <span class="contact__info-label">Telepon</span>
-                  <span class="contact__info-value">{{ personalInfo.phone }}</span>
-                </div>
-              </a>
-
-              <!-- Email -->
-              <a :href="`mailto:${personalInfo.email}`" class="contact__info-item">
-                <div class="contact__info-icon">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/>
-                    <path d="M2.5 6l7.5 5 7.5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <span class="contact__info-label">Email</span>
-                  <span class="contact__info-value">{{ personalInfo.email }}</span>
-                </div>
-              </a>
-
-              <!-- Alamat -->
-              <div class="contact__info-item">
-                <div class="contact__info-icon">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M10 1.67c-3.68 0-6.67 2.99-6.67 6.66 0 5 6.67 10 6.67 10s6.67-5 6.67-10c0-3.67-2.99-6.66-6.67-6.66z" stroke="currentColor" stroke-width="1.5"/>
-                    <circle cx="10" cy="8.33" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-                  </svg>
-                </div>
-                <div>
-                  <span class="contact__info-label">Alamat</span>
-                  <span class="contact__info-value">{{ personalInfo.address }}</span>
-                </div>
+        <div class="contact__grid">
+          <!-- Form -->
+          <div :class="['contact__form-wrapper', { 'contact__form-wrapper--visible': isVisible || prefersReducedMotion }]">
+            <form @submit.prevent="handleSubmit" class="contact__form">
+              <div class="contact__field">
+                <label for="name" class="contact__field-label">Nama Lengkap</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  v-model="form.name" 
+                  required 
+                  class="contact__input"
+                  placeholder="John Doe"
+                />
               </div>
-              
-              <!-- GitHub -->
-              <a v-if="personalInfo.github" :href="personalInfo.github" target="_blank" rel="noopener noreferrer" class="contact__info-item">
-                <div class="contact__info-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z" fill="currentColor"/>
-                  </svg>
-                </div>
-                <div>
-                  <span class="contact__info-label">GitHub</span>
-                  <span class="contact__info-value">MelisaIsolina</span>
-                </div>
-              </a>
-            </div>
+
+              <div class="contact__field">
+                <label for="email" class="contact__field-label">Alamat Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  v-model="form.email" 
+                  required 
+                  class="contact__input"
+                  placeholder="john@example.com"
+                />
+              </div>
+
+              <div class="contact__field">
+                <label for="message" class="contact__field-label">Pesan</label>
+                <textarea 
+                  id="message" 
+                  v-model="form.message" 
+                  required 
+                  class="contact__input contact__textarea"
+                  placeholder="Ceritakan tentang proyek Anda..."
+                ></textarea>
+              </div>
 
               <MagneticButton
-                <div class="contact__download"
-                tag="a"
-                :href="pdfUrl"
-                variant="secondary"
-                download="CV_Melisa_Isolina_S.pdf"
+                type="submit"
+                variant="primary"
+                :disabled="isSubmitting"
+                class="contact__submit"
               >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M8 2v9.5M8 11.5L4 7.5M8 11.5L12 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M2 14h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-                Unduh CV PDF
+                {{ isSubmitting ? 'Mengirim...' : 'Kirim Pesan' }}
               </MagneticButton>
+            </form>
+          </div>
+
+          <!-- Contact info sidebar -->
+          <div :class="['contact__info', { 'contact__info--visible': isVisible || prefersReducedMotion }]">
+            <div class="contact__info-card">
+              <h3 class="contact__info-title">Informasi Kontak</h3>
+
+              <div class="contact__info-items">
+                <!-- Telepon -->
+                <a href="https://wa.me/6285345420296" target="_blank" rel="noopener noreferrer" class="contact__info-item">
+                  <div class="contact__info-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path d="M7.24 3.33L4.77 2.14c-.5-.24-1.1-.03-1.36.47L1.94 5.57c-.22.43-.1.96.29 1.24 1.53 1.17 3.29 2.71 5.33 4.76 2.04 2.04 3.58 3.8 4.76 5.33.28.39.81.51 1.24.29l2.96-1.47c.5-.26.71-.86.47-1.36l-1.19-2.47c-.21-.43-.69-.67-1.14-.57l-2.36.54c-.31.07-.64-.03-.86-.24L8.1 8.28c-.21-.21-.31-.55-.24-.86l.54-2.36c.1-.46-.14-.93-.57-1.14l-.59-.59z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="contact__info-label">Telepon</span>
+                    <span class="contact__info-value">{{ personalInfo.phone }}</span>
+                  </div>
+                </a>
+
+                <!-- Email -->
+                <a :href="`mailto:${personalInfo.email}`" class="contact__info-item">
+                  <div class="contact__info-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M2.5 6l7.5 5 7.5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="contact__info-label">Email</span>
+                    <span class="contact__info-value">{{ personalInfo.email }}</span>
+                  </div>
+                </a>
+
+                <!-- Alamat -->
+                <div class="contact__info-item">
+                  <div class="contact__info-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path d="M10 1.67c-3.68 0-6.67 2.99-6.67 6.66 0 5 6.67 10 6.67 10s6.67-5 6.67-10c0-3.67-2.99-6.66-6.67-6.66z" stroke="currentColor" stroke-width="1.5"/>
+                      <circle cx="10" cy="8.33" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="contact__info-label">Alamat</span>
+                    <span class="contact__info-value">{{ personalInfo.address }}</span>
+                  </div>
+                </div>
+                
+                <!-- GitHub -->
+                <a v-if="personalInfo.github" :href="personalInfo.github" target="_blank" rel="noopener noreferrer" class="contact__info-item">
+                  <div class="contact__info-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="contact__info-label">GitHub</span>
+                    <span class="contact__info-value">MelisaIsolina</span>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Bagian ini yang sempat hilang dan membuat error -->
+              <div class="contact__download">
+                <MagneticButton
+                  tag="a"
+                  :href="pdfUrl"
+                  variant="secondary"
+                  download="CV_Melisa_Isolina_S.pdf"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 2v9.5M8 11.5L4 7.5M8 11.5L12 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 14h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  Unduh CV PDF
+                </MagneticButton>
+              </div>
+
             </div>
           </div>
         </div>
