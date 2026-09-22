@@ -162,6 +162,7 @@ onMounted(() => {
             </div>
 
               <MagneticButton
+                <div class="contact__download"
                 tag="a"
                 :href="pdfUrl"
                 variant="secondary"
