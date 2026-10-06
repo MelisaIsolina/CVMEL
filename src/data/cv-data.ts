@@ -216,6 +216,7 @@ export const projects: Project[] = [
     title: 'Project Improvement: Perancangan Sistem Kontrol Dokumen',
     company: 'PT. Mega Global Energy',
     year: '2024',
+    image: 'flowchart-dokumen.png',
     description: [
       'Memimpin inisiatif perbaikan (improvement) dengan merancang ulang alur persetujuan 6 jenis dokumen internal departemen Planning yang sebelumnya manual dan berlapis.',
       'Memisahkan alur menjadi dua pola sesuai bobot dokumen: persetujuan penuh 5 langkah untuk dokumen krusial, dan pencatatan otomatis 2 langkah untuk checklist rutin harian (ISO 9001).',
