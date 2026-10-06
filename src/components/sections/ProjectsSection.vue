@@ -229,4 +229,24 @@ onMounted(() => {
     grid-template-columns: 1fr;
   }
 }
+  /* --- Styling Tambahan untuk Gambar Project --- */
+.project__card-image-wrapper {
+  margin-bottom: 24px;
+  border-radius: var(--radius-md, 8px);
+  overflow: hidden;
+  border: 1px solid var(--color-mist, #f1f5f9);
+}
+
+.project__card-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Efek zoom in pelan saat kartu disorot mouse */
+.project__card:hover .project__card-image {
+  transform: scale(1.03); 
+}
 </style>
+<div v-if="project.image">
