@@ -215,7 +215,7 @@ export const projects: Project[] = [
     id: 'doc-control',
     title: 'Project Improvement: Perancangan Sistem Kontrol Dokumen',
     company: 'PT. Mega Global Energy',
-    year: '2024',
+    year: '2025',
     image: 'flowchart-dokumen.png',
     description: [
       'Memimpin inisiatif perbaikan (improvement) dengan merancang ulang alur persetujuan 6 jenis dokumen internal departemen Planning yang sebelumnya manual dan berlapis.',
@@ -227,7 +227,7 @@ export const projects: Project[] = [
     id: 'erd-design',
     title: 'Project Improvement: Desain Basis Data (ERD) Kontrol Dokumen',
     company: 'PT. Mega Global Energy',
-    year: '2024',
+    year: '2025',
     description: [
       'Merancang Entity Relationship Diagram 5 tabel (departemen, pengguna, dokumen, revisi, persetujuan) sebagai fondasi dari sistem baru.',
       'Memastikan struktur data dapat digunakan secara lintas departemen dengan riwayat pengajuan yang terintegrasi dan mudah dilacak.'
