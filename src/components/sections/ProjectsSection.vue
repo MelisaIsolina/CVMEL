@@ -6,6 +6,7 @@ import { useReducedMotion } from '../../composables/useReducedMotion'
 const { prefersReducedMotion } = useReducedMotion()
 const sectionRef = ref<HTMLElement | null>(null)
 const isVisible = ref(false)
+  const baseUrl = import.meta.env.BASE_URL
 
 onMounted(() => {
   if (!sectionRef.value) return
@@ -51,7 +52,9 @@ onMounted(() => {
           
           <h3 class="project__card-title">{{ project.title }}</h3>
           <p class="project__card-company">{{ project.company }}</p>
-          
+            <div v-if="project.image" class="project__card-image-wrapper">
+            <img :src="baseUrl + project.image" :alt="project.title" class="project__card-image" />
+          </div>
           <ul class="project__card-desc">
             <li v-for="(desc, dIndex) in project.description" :key="dIndex">
               {{ desc }}
