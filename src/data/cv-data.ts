@@ -198,16 +198,13 @@ export interface Project {
   description: string[]
   image?: string 
 }
-
 export const projects: Project[] = [
-  {
-     export const projects: Project[] = [
   {
     id: 'sap-dashboard',
     title: 'Dashboard: Monitoring Safety Accountability Program (SAP)',
     company: 'PT. Mega Global Energy',
     year: '2024',
-    image: 'Dashboard SAP.png', // <-- Pastikan ada koma di sini
+    image: 'Dashboard SAP.png',
     description: [
       'Mengembangkan dashboard pemantauan interaktif untuk Safety Accountability Program (SAP) di Departemen Planning guna melacak KPI harian dan bulanan.',
       'Memvisualisasikan perbandingan target (Plan) dan aktualisasi (Actual) menggunakan Donut Chart, Multi-Bar Chart, dan tabel Detail Performance secara real-time.',
@@ -245,7 +242,6 @@ export const projects: Project[] = [
     ]
   }
 ]
-
 // --- Navigation Items ---
 export const navItems = [
   { id: 'beranda', label: 'Beranda' },
