@@ -249,4 +249,3 @@ onMounted(() => {
   transform: scale(1.03); 
 }
 </style>
-<div v-if="project.image">
