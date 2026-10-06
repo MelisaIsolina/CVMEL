@@ -237,7 +237,8 @@ export const projects: Project[] = [
     id: 'ui-docs-repository',
     title: 'UI Design: Planning Docs Repository Dashboard',
     company: 'PT. Mega Global Energy',
-    year: '2024',
+    year: '2026',
+    image: 'ui-repository.png',
     description: [
       'Merancang sistem repositori dokumen digital, mendesain tata letak dashboard interaktif'
     ]
